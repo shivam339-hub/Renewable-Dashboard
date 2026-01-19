@@ -1,41 +1,59 @@
-// IMPORTS NEEDED:
-// NO IMPORTS - Uses only HTML and Tailwind
-
 export default function NewBillCard() {
   return (
-    <div className="bg-white rounded-lg border p-6">
-      <h3 className="text-lg font-semibold mb-4">Bill with renewable energy</h3>
-      <div className="space-y-4">
-        <div>
-          <div className="text-sm text-gray-600">Total consumption</div>
-          <div className="text-2xl font-bold">30,00,000 units</div>
-        </div>
-        <div>
-          <div className="text-sm text-gray-600">New monthly bill</div>
-          <div className="text-xl font-bold">₹1.2cr/year</div>
-          <div className="text-2xl font-bold">₹22,34,33,334</div>
-          <span className="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded mt-1">
-            9.5%
+    <div className="bg-white rounded-[12px] p-[20px]">
+      {/* Title */}
+      <h3 className="text-[14px] font-medium text-gray-700 mb-[12px]">
+        Bill with renewable energy
+      </h3>
+
+      {/* Content */}
+      <div className="space-y-[12px]">
+        {/* Per unit rate */}
+        <div className="flex justify-between">
+          <span className="text-[12px] text-gray-500">
+            Per unit rate
+          </span>
+          <span className="text-[14px] font-semibold">
+            ₹1.86
           </span>
         </div>
-        <div>
-          <div className="text-sm text-gray-600">New per unit rate</div>
-          <div className="text-2xl font-bold">₹1.86</div>
-          <span className="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded mt-1">
-            10.6% Potential savings
+
+        {/* Monthly bill with savings badge */}
+        <div className="flex justify-between items-center">
+          <span className="text-[12px] text-gray-500">
+            Monthly bill
           </span>
-        </div>
-        <div className="mt-4">
-          <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded"></div>
-              <span>Renewable: 30%</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-gray-400 rounded"></div>
-              <span>Non-renewable: 70%</span>
-            </div>
+          <div className="flex items-center gap-[6px]">
+            <span className="text-[14px] font-semibold">
+              ₹22,34,33,334
+            </span>
+            <span className="bg-green-100 text-green-700 text-[10px] px-[6px] py-[2px] rounded">
+              9.5%
+            </span>
           </div>
+        </div>
+
+        {/* Total consumption */}
+        <div className="flex justify-between">
+          <span className="text-[12px] text-gray-500">
+            Total consumption
+          </span>
+          <span className="text-[14px] font-semibold">
+            30,00,000 units
+          </span>
+        </div>
+
+        {/* Renewable vs Non-renewable */}
+        <div className="text-[12px] text-gray-500">
+          Renewable:{' '}
+          <span className="font-medium text-gray-700">
+            30%
+          </span>
+          {' '}•{' '}
+          Non-renewable:{' '}
+          <span className="font-medium text-gray-700">
+            70%
+          </span>
         </div>
       </div>
     </div>
