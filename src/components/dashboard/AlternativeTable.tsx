@@ -1,164 +1,169 @@
-// IMPORTS NEEDED:
-'use client'; // Required for useState, useMemo
+'use client'
 
-import { useState, useMemo } from 'react';
-import { Search, ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
-import { Alternative, SortConfig } from '@/types';
-import { mockAlternatives } from '@/data/mockData';
-import { filterData, sortData } from '@/lib/tableUtils';
+import { useState, useMemo } from 'react'
+import {
+  Search,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUpDown,
+} from 'lucide-react'
+
+import { Alternative, SortConfig } from '@/types'
+import { mockAlternatives } from '@/data/mockData'
+import { filterData, sortData } from '@/lib/tableUtils'
 
 export default function AlternativesTable() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' });
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: null,
+    direction: 'asc',
+  })
 
   const handleSort = (key: keyof Alternative) => {
     setSortConfig((prev) => ({
       key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc',
-    }));
-  };
+      direction:
+        prev.key === key && prev.direction === 'asc'
+          ? 'desc'
+          : 'asc',
+    }))
+  }
 
-  const filteredData = useMemo(() => {
-    return filterData(mockAlternatives, searchTerm);
-  }, [searchTerm]);
+  const filteredData = useMemo(
+    () => filterData(mockAlternatives, searchTerm),
+    [searchTerm]
+  )
 
-  const sortedData = useMemo(() => {
-    return sortData(filteredData, sortConfig);
-  }, [filteredData, sortConfig]);
+  const sortedData = useMemo(
+    () => sortData(filteredData, sortConfig),
+    [filteredData, sortConfig]
+  )
 
   const SortIcon = ({ columnKey }: { columnKey: keyof Alternative }) => {
     if (sortConfig.key !== columnKey) {
-      return <ChevronsUpDown className="w-4 h-4 text-gray-400" />;
+      return (
+        <ChevronsUpDown className="h-4 w-4 text-gray-400" />
+      )
     }
+
     return sortConfig.direction === 'asc' ? (
-      <ChevronUp className="w-4 h-4 text-blue-600" />
+      <ChevronUp className="h-4 w-4 text-blue-600" />
     ) : (
-      <ChevronDown className="w-4 h-4 text-blue-600" />
-    );
-  };
+      <ChevronDown className="h-4 w-4 text-blue-600" />
+    )
+  }
 
   return (
-    <div className="mt-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold">Other alternatives</h2>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+    <section className="mt-10 rounded-xl border border-gray-200 bg-white">
+      
+      {/* Header */}
+      <div className="flex flex-col gap-4 border-b border-gray-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-sm font-semibold text-gray-900">
+          Other alternatives
+        </h2>
+
+        {/* Search */}
+        <div className="relative w-full sm:w-[260px]">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
-            placeholder="Search alternatives..."
+            placeholder="Search alternatives"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-200 py-2 pl-9 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none"
           />
         </div>
       </div>
 
-      <div className="overflow-x-auto border rounded-lg">
-        <table className="w-full bg-white">
-          <thead className="bg-gray-50 border-b">
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm">
+          
+          {/* Table Head */}
+          <thead className="bg-gray-50 text-xs font-medium text-gray-500">
             <tr>
-              <th className="sticky left-0 bg-gray-50 z-20 px-4 py-3 text-left">
-                <button
-                  onClick={() => handleSort('procurementMode')}
-                  className="flex items-center gap-2 font-semibold text-sm"
+              {[
+                { key: 'procurementMode', label: 'Procurement mode', sticky: true },
+                { key: 'technology', label: 'Technology' },
+                { key: 'costPerUnit', label: 'Cost / unit' },
+                { key: 'annualSavings', label: 'Annual savings' },
+                { key: 'upfrontInvestment', label: 'Upfront investment' },
+                { key: 'notes', label: 'Notes', wide: true },
+                { key: 'column1', label: 'Column A' },
+                { key: 'column2', label: 'Column B' },
+                { key: 'column3', label: 'Column C' },
+              ].map((col) => (
+                <th
+                  key={col.key}
+                  className={`whitespace-nowrap px-5 py-3 text-left ${
+                    col.sticky
+                      ? 'sticky left-0 z-20 bg-gray-50'
+                      : ''
+                  } ${col.wide ? 'min-w-[280px]' : 'min-w-[140px]'}`}
                 >
-                  Procurement mode
-                  <SortIcon columnKey="procurementMode" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[120px]">
-                <button
-                  onClick={() => handleSort('technology')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Technology
-                  <SortIcon columnKey="technology" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[140px]">
-                <button
-                  onClick={() => handleSort('costPerUnit')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Cost per unit
-                  <SortIcon columnKey="costPerUnit" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[140px]">
-                <button
-                  onClick={() => handleSort('annualSavings')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Annual savings
-                  <SortIcon columnKey="annualSavings" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[180px]">
-                <button
-                  onClick={() => handleSort('upfrontInvestment')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Upfront investment
-                  <SortIcon columnKey="upfrontInvestment" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[300px]">
-                <button
-                  onClick={() => handleSort('notes')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Notes
-                  <SortIcon columnKey="notes" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[120px]">
-                <button
-                  onClick={() => handleSort('column1')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Column A
-                  <SortIcon columnKey="column1" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[120px]">
-                <button
-                  onClick={() => handleSort('column2')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Column B
-                  <SortIcon columnKey="column2" />
-                </button>
-              </th>
-              <th className="px-4 py-3 text-left min-w-[120px]">
-                <button
-                  onClick={() => handleSort('column3')}
-                  className="flex items-center gap-2 font-semibold text-sm"
-                >
-                  Column C
-                  <SortIcon columnKey="column3" />
-                </button>
-              </th>
+                  <button
+                    onClick={() =>
+                      handleSort(col.key as keyof Alternative)
+                    }
+                    className="flex items-center gap-2"
+                  >
+                    {col.label}
+                    <SortIcon
+                      columnKey={col.key as keyof Alternative}
+                    />
+                  </button>
+                </th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y">
+
+          {/* Table Body */}
+          <tbody className="divide-y divide-gray-200">
             {sortedData.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
-                <td className="sticky left-0 bg-white z-10 px-4 py-3 font-medium">
+              <tr
+                key={row.id}
+                className="hover:bg-gray-50"
+              >
+                <td className="sticky left-0 z-10 bg-white px-5 py-4 font-medium text-gray-900">
                   {row.procurementMode}
                 </td>
-                <td className="px-4 py-3">{row.technology}</td>
-                <td className="px-4 py-3">{row.costPerUnit}</td>
-                <td className="px-4 py-3">{row.annualSavings}</td>
-                <td className="px-4 py-3">{row.upfrontInvestment}</td>
-                <td className="px-4 py-3 text-sm text-gray-600">{row.notes}</td>
-                <td className="px-4 py-3">{row.column1}</td>
-                <td className="px-4 py-3">{row.column2}</td>
-                <td className="px-4 py-3">{row.column3}</td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.technology}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.costPerUnit}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.annualSavings}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.upfrontInvestment}
+                </td>
+
+                <td className="px-5 py-4 text-xs leading-relaxed text-gray-500">
+                  {row.notes}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.column1}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.column2}
+                </td>
+
+                <td className="px-5 py-4 text-gray-700">
+                  {row.column3}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
-  );
+    </section>
+  )
 }
