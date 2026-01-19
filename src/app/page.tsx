@@ -16,8 +16,8 @@ export default function Home() {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Recommended solution for ABC Industries</h1>
-          <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <h1 className="text-[20px] font-semibold text-gray-900">Recommended solution for ABC Industries</h1>
+          <button className="flex items-center gap-2 bg-[#0B5ED7] text-white px-[12px] py-[6px] rounded-[6px] text-[12px]">
             <Download className="w-4 h-4" />
             Download as PDF
           </button>
