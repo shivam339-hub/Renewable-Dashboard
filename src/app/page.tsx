@@ -17,8 +17,13 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-8">
+   <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+  {/* 👇 ADD THIS LINE */}
+  <EnergyBanner />
+
+  <div className="flex items-center justify-between mb-8">
+
           <h1 className="text-[20px] font-semibold text-gray-900">Recommended solution for ABC Industries</h1>
           <button className="flex items-center gap-2 bg-[#0B5ED7] text-white px-[12px] py-[6px] rounded-[6px] text-[12px]">
             <Download className="w-4 h-4" />
@@ -32,14 +37,12 @@ export default function Home() {
         </div>
 
         <div>
-          <RecommendedSolution />
-          <AlternativesTable />
-          <FAQ />
-          <EmailSubscription />
-        </div>
-      </main>
+  <RecommendedSolution />
+  <Assumptions />
+  <AlternativesTable />
+  <FAQ />
+  <EmailSubscription />
+</div>
 
-  <Footer />
-      </div>
 );
 }
