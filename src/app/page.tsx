@@ -1,13 +1,16 @@
 // IMPORTS NEEDED:
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import EnergyBanner from '@/components/dashboard/EnergyBanner';
 import CurrentBillCard from '@/components/dashboard/CurrentBillCard';
 import NewBillCard from '@/components/dashboard/NewBillCard';
 import RecommendedSolution from '@/components/dashboard/RecommendedSolution';
+import Assumptions from '@/components/dashboard/Assumptions';
 import AlternativesTable from '@/components/dashboard/AlternativeTable';
 import FAQ from '@/components/dashboard/FAQ';
 import EmailSubscription from '@/components/dashboard/EmailSubscription';
 import { Download } from 'lucide-react';
+
 
 export default function Home() {
   return (
